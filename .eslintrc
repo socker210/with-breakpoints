@@ -1,0 +1,18 @@
+{
+  "extends": [
+    "standard",
+    "standard-react"
+  ],
+  "env": {
+    "jest": true
+  },
+  "rules": {
+    "eol-last": 0,
+    "no-unused-vars": 1,
+    "no-return-assign": 0,
+    "react/react-in-jsx-scope": 0,
+    "react/prop-types": [2, {
+      "ignore": ["children"]
+    }]
+  }
+}
