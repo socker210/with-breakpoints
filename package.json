@@ -27,6 +27,7 @@
     }
   },
   "dependencies": {
+    "hoist-non-react-statics": "^3.3.0",
     "json2mq": "^0.2.0",
     "matchmediaquery": "^0.3.0"
   },

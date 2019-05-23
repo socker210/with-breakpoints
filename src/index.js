@@ -1,2 +1,7 @@
-export { default } from './Breakpoint'
-export { withBreakpoint } from './withBreakpoint'
+import Breakpoint from './Breakpoint'
+import withBreakpoint from './withBreakpoint'
+
+export default Breakpoint
+export {
+  withBreakpoint
+}

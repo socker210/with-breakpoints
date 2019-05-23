@@ -1,69 +1,99 @@
 import React from 'react'
+import hoistNonReactStatics from 'hoist-non-react-statics'
 import MatchMediaquery from 'matchmediaquery'
 import json2mq from 'json2mq'
 
-export function withBreakpoint (Component, mqs) {
-  if (!Object.keys(mqs || {}).length) {
-    console.error('Cannot read mediaquery')
+const isSSR = typeof window === 'undefined' || typeof window.matchMedia === 'undefined'
+const requiredKeys = ['name']
 
-    return Component
-  }
+function validateMq (mq) {
+  if (typeof mq !== 'object') throw new Error('Invalid type of \'mqs\'\'s element: must be an object')
 
+  const providedKeys = Object.keys(mq)
+  const nonProvidedKeys = requiredKeys.filter(key => providedKeys.indexOf(key) === -1)
+
+  return [
+    !nonProvidedKeys.length,
+    nonProvidedKeys
+  ]
+}
+
+function createHOC (WrappedComponent, mqs) {
   class HOC extends React.Component {
     constructor (props) {
       super(props)
 
-      this.updateMatches = this.updateMatches.bind(this)
+      const state = {}
 
-      this.state = Object.keys(mqs)
-        .reduce((container, key) => {
-          const mq = typeof mqs[key] === 'string' ? mqs[key] : json2mq(mqs[key])
-          const mm = MatchMediaquery(mq)
-          const listener = ({ matches }) => this.updateMatches(key, matches)
+      mqs.map(mq => {
+        const name = mq.name
+        const query = mq.mq ? (typeof mq.mq === 'string' ? mq.mq : json2mq(mq)) : 'all'
+        const mm = isSSR ? undefined : MatchMediaquery(query)
+        const initialMatches = isSSR ? (typeof mq.defaultMatches === 'undefined' ? true : mq.defaultMatches) : mm.matches
+
+        state[name] = { matches: initialMatches }
+
+        if (mm) {
+          const listener = ({ matches }) => this.setState(name, matches)
 
           mm.addListener(listener)
 
-          container[key] = {
-            matches: mm.matches,
-            removeListener: () => mm.removeListener(listener)
-          }
+          state[name].removeListener = mm.removeListener(listener)
+        }
+      })
 
-          return container
-        }, {})
+      this.state = state
     }
 
     componentWillUnmount () {
       this._unmount = true
 
       Object.keys(this.state)
-        .map(key => this.state[key].removeListener())
+        .map(mq => mq.removeListener && mq.removeListener())
     }
 
-    updateMatches (key, matches) {
-      if (this._unmount) return
+    updateMatches (name, matches) {
+      const state = Object.assign({}, this.state[name], { matches })
 
-      this.setState({
-        [key]: Object.assign(this.state[key], { matches })
-      })
+      this.setState({ [name]: state })
     }
 
     getProps () {
-      const props = {
-        ...this.props
+      const state = Object.keys(this.state)
+        .reduce((container, name) => {
+          container[name] = this.state[name].matches
+
+          return container
+        }, {})
+
+      return {
+        ...this.props,
+        ...state
       }
-
-      Object.keys(this.state)
-        .map(key => props[key] = this.state[key].matches)
-
-      return props
     }
 
     render () {
       const props = this.getProps()
 
-      return <Component {...props} />
+      return React.isValidElement(WrappedComponent) ? WrappedComponent : <WrappedComponent {...props} />
     }
   }
 
   return HOC
+}
+
+export default mqs => WrappedComponent => {
+  if (!Array.isArray(mqs)) throw new Error('Invalid type of \'mqs\': must be an array')
+
+  mqs.map(mq => {
+    const [isSuccess, nonProvidedKeys] = validateMq(mq)
+
+    if (!isSuccess) throw new Error(`Cannot read property '${nonProvidedKeys.join(', ')}'`)
+  })
+
+  const Enhance = createHOC(WrappedComponent, mqs)
+
+  hoistNonReactStatics(Enhance, WrappedComponent)
+
+  return Enhance
 }

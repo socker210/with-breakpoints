@@ -49,7 +49,7 @@ class Breakpoint extends React.Component {
 
     if (typeof children === 'function') return children(matches)
 
-    return matches ? children : null
+    return matches ? children || null : null
   }
 }
 
