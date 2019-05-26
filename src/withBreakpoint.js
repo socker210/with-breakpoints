@@ -1,7 +1,7 @@
 import React from 'react'
 import hoistNonReactStatics from 'hoist-non-react-statics'
-import MatchMediaquery from 'matchmediaquery'
 import json2mq from 'json2mq'
+import matchMedia from './matchMedia'
 
 const isSSR = typeof window === 'undefined' || typeof window.matchMedia === 'undefined'
 const requiredKeys = ['name']
@@ -28,7 +28,7 @@ function createHOC (WrappedComponent, mqs) {
       mqs.map(mq => {
         const name = mq.name
         const query = mq.mq ? (typeof mq.mq === 'string' ? mq.mq : json2mq(mq)) : 'all'
-        const mm = isSSR ? undefined : MatchMediaquery(query)
+        const mm = isSSR ? undefined : matchMedia(query)
         const initialMatches = isSSR ? (typeof mq.defaultMatches === 'undefined' ? true : mq.defaultMatches) : mm.matches
 
         state[name] = { matches: initialMatches }

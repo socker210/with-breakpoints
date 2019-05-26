@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import MatchMediaquery from 'matchmediaquery'
 import json2mq from 'json2mq'
+import matchMedia from './matchMedia'
 
 class Breakpoint extends React.Component {
   constructor (props) {
@@ -16,10 +16,8 @@ class Breakpoint extends React.Component {
   }
 
   componentWillMount () {
-    if (typeof window !== 'object' || typeof window.matchMedia !== 'function') return
-
     const { mq } = this.props
-    const mm = MatchMediaquery(typeof mq === 'string' ? mq : json2mq(mq))
+    const mm = matchMedia(typeof mq === 'string' ? mq : json2mq(mq))
 
     mm.addListener(this.updateMatches)
 
