@@ -4,15 +4,24 @@ class MatchMedia {
   }
 
   addListener (func) {
-    if (this.mm) {
-      this.func = func
+    if (!this.mm) return
 
-      this.mm.addListener(func)
-    }
+    this.func = func
+    this.mm.addListener(func)
   }
 
   removeListener () {
-    if (this.mm && this.func) this.mm.removeListener(this.func)
+    if (!(this.mm && this.func)) return
+
+    this.mm.removeListener(this.func)
+  }
+
+  getMatches (defaultMatches = true) {
+    return !this.mm || typeof this.mm.matches === 'undefined' ? defaultMatches : this.mm.matches
+  }
+
+  getMediaQueryList () {
+    return this.mm
   }
 }
 

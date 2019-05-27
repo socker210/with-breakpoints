@@ -3,10 +3,18 @@ import mockMatchMedia from './util/mockMatchMedia'
 
 describe('matchMedia', () => {
   describe('Run on node', () => {
-    it('should be undefined', () => {
-      const mm = matchMedia('screen and (max-width: 700px)')
+    let mm
 
-      expect(mm.mm).toBeUndefined()
+    beforeAll(() => {
+      mm = matchMedia('screen and (max-width: 700px)')
+    })
+
+    it('should be undefined', () => {
+      expect(mm.getMediaQueryList()).toBeUndefined()
+    })
+
+    it('getMatches', () => {
+      expect(mm.getMatches(false)).toBeFalsy()
     })
   })
 
@@ -15,10 +23,14 @@ describe('matchMedia', () => {
     let mockFn
 
     beforeAll(() => {
-      window.matchMedia = mockMatchMedia(true)
+      window.matchMedia = mockMatchMedia(false)
       mockFn = jest.fn()
 
       mm = matchMedia('screen and (max-width: 800px)')
+    })
+
+    it('getMatches', () => {
+      expect(mm.getMatches()).toBeFalsy()
     })
 
     it('addListener', () => {
