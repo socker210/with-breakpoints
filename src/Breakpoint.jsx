@@ -9,21 +9,21 @@ class Breakpoint extends React.Component {
 
     this.state = {
       mm: undefined,
-      matches: props.defaultMatches
+      matches: undefined
     }
 
     this.updateMatches = this.updateMatches.bind(this)
   }
 
   componentWillMount () {
-    const { mq } = this.props
+    const { mq, defaultMatches } = this.props
     const mm = matchMedia(typeof mq === 'string' ? mq : json2mq(mq))
 
     mm.addListener(this.updateMatches)
 
     this.setState({
-      mm: mm,
-      matches: mm.matches
+      mm: mm.getMediaQueryList(),
+      matches: mm.getMatches(defaultMatches)
     })
   }
 
