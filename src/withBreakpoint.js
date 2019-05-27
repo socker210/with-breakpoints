@@ -3,7 +3,6 @@ import hoistNonReactStatics from 'hoist-non-react-statics'
 import json2mq from 'json2mq'
 import matchMedia from './matchMedia'
 
-const isSSR = typeof window === 'undefined' || typeof window.matchMedia === 'undefined'
 const requiredKeys = ['name']
 
 function validateMq (mq) {
@@ -28,18 +27,14 @@ function createHOC (WrappedComponent, mqs) {
       mqs.map(mq => {
         const name = mq.name
         const query = mq.mq ? (typeof mq.mq === 'string' ? mq.mq : json2mq(mq)) : 'all'
-        const mm = isSSR ? undefined : matchMedia(query)
-        const initialMatches = isSSR ? (typeof mq.defaultMatches === 'undefined' ? true : mq.defaultMatches) : mm.matches
+        const mm = matchMedia(query)
+        const initialMatches = mm.getMatches(mq.defaultMatches)
+        const listener = ({ matches }) => this.setState(name, matches)
+
+        mm.addListener(listener)
 
         state[name] = { matches: initialMatches }
-
-        if (mm) {
-          const listener = ({ matches }) => this.setState(name, matches)
-
-          mm.addListener(listener)
-
-          state[name].removeListener = mm.removeListener(listener)
-        }
+        state[name].removeListener = mm.removeListener(listener)
       })
 
       this.state = state
@@ -49,13 +44,7 @@ function createHOC (WrappedComponent, mqs) {
       this._unmount = true
 
       Object.keys(this.state)
-        .map(mq => mq.removeListener && mq.removeListener())
-    }
-
-    updateMatches (name, matches) {
-      const state = Object.assign({}, this.state[name], { matches })
-
-      this.setState({ [name]: state })
+        .map(mq => mq.removeListener())
     }
 
     getProps () {
