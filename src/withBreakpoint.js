@@ -29,12 +29,12 @@ function createHOC (WrappedComponent, mqs) {
         const query = mq.mq ? (typeof mq.mq === 'string' ? mq.mq : json2mq(mq)) : 'all'
         const mm = matchMedia(query)
         const initialMatches = mm.getMatches(mq.defaultMatches)
-        const listener = ({ matches }) => this.setState(name, matches)
+        const listener = ({ matches }) => this.setState({ [name]: Object.assign(this.state[name], { matches }) })
 
         mm.addListener(listener)
 
         state[name] = { matches: initialMatches }
-        state[name].removeListener = mm.removeListener(listener)
+        state[name].removeListener = () => mm.removeListener(listener)
       })
 
       this.state = state
