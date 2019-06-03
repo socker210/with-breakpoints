@@ -14,12 +14,12 @@ Also, you can receive props the matches status of the mediaquery set by HOC comp
 
 ## Installation
 Install with npm:  
-```console
+```
 npm install with-breakpoints
 ```
 
 Install with yarn:
-```console
+```
 yarn add with-breakpoints
 ```
 
@@ -108,7 +108,7 @@ Below components's `mq` props is used be [json2mq](https://github.com/akiran/jso
 ### Breakpoint
 | Props          | Type                  | Default | Required | Description                                                       |
 |----------------|-----------------------|---------|----------|-------------------------------------------------------------------|
-| mq             | `string|object|array` | `all`   | `false`  | CSS mediaqueries                                                  |
+| mq             | `string&#124;object&#124;array` | `all`   | `false`  | CSS mediaqueries                                                  |
 | defaultMatches | `bool`                | `true`  | `false`  | Default match for server side rendering (Browser will be ignored) |
 | onChange       | `func`                |         | `false`  | onChange event (This function will get 'matches' argument)        |
 
@@ -116,7 +116,7 @@ Below components's `mq` props is used be [json2mq](https://github.com/akiran/jso
 | Props          | Type                  | Default | Required | Description                                                       |
 |----------------|-----------------------|---------|----------|-------------------------------------------------------------------|
 | name           | `true`                |         | `true`   | The name of props                                                 |
-| mq             | `string|object|array` | `all`   | `false`  | CSS mediaqueries                                                  |
+| mq             | `string&#124;object&#124;array` | `all`   | `false`  | CSS mediaqueries                                                  |
 | defaultMatches | `bool`                | `true`  | `false`  | Default match for server side rendering (Browser will be ignored) |
 > This component is HOC. Therefore, you can pass the props via function argument like a react-redux's `connect`.  
 > The argument that [mqs](#using-a-hoc) must be an array and its elements must be an object.
