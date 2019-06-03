@@ -1,8 +1,8 @@
 {
   "name": "with-breakpoints",
   "version": "1.0.0",
-  "description": "React Breakpoints for browsers",
-  "main": "index.js",
+  "description": "CSS media queries in react, for build a responsive design as you want",
+  "main": "dist/index.js",
   "scripts": {
     "dev": "NODE_ENV=development webpack-dev-server",
     "test": "TEST_ENV=unit jest --verbose",
@@ -15,7 +15,9 @@
   "keywords": [
     "breakpoints",
     "mediaquery",
+    "matchmedia",
     "responsive",
+    "component",
     "react"
   ],
   "author": "socker210",
