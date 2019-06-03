@@ -1,7 +1,6 @@
 import React from 'react'
 import { shallow, mount } from 'enzyme'
 import { withBreakpoint } from '../src'
-import mockMatchMedia from './util/mockMatchMedia'
 
 // eslint-disable-next-line react/prop-types
 const Component = ({ pc, mobile, tablet }) => (
@@ -68,19 +67,13 @@ describe('withBreakpoint', () => {
 
     it('pass all of defaultMatches is false, expect render null', () => {
       const mqs = [
-        { name: 'mobile', mq: 'screen and (min-width: 801px)', defaultMatches: false },
+        { name: 'pc', mq: 'screen and (min-width: 801px)', defaultMatches: false },
         { name: 'mobile', mq: 'screen and (max-width: 800px)', defaultMatches: false }
       ]
       const HOC = withBreakpoint(mqs)(Component)
       const wrapper = mount(<HOC />)
 
       expect(wrapper.children().find('#container').text()).toEqual('')
-    })
-  })
-
-  describe('Run on browser', () => {
-    beforeEach(() => {
-      window.matchMedia = undefined
     })
   })
 })
