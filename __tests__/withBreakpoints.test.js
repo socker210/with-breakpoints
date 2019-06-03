@@ -1,6 +1,6 @@
 import React from 'react'
 import { shallow, mount } from 'enzyme'
-import { withBreakpoint } from '../src'
+import { withBreakpoints } from '../src'
 
 // eslint-disable-next-line react/prop-types
 const Component = ({ pc, mobile, tablet }) => (
@@ -9,7 +9,7 @@ const Component = ({ pc, mobile, tablet }) => (
   </div>
 )
 
-describe('withBreakpoint', () => {
+describe('withBreakpoints', () => {
   describe('Validate mediaquery', () => {
     it('pass normal value', () => {
       const mqs = [
@@ -17,21 +17,21 @@ describe('withBreakpoint', () => {
         { name: 'tablet', mq: 'screen and (max-width: 767px)', defaultMatches: false },
         { name: 'mobile', mq: 'screen and (max-width: 468px)', defaultMatches: true }
       ]
-      const HOC = withBreakpoint(mqs)(Component)
+      const HOC = withBreakpoints(mqs)(Component)
       const wrapper = shallow(<HOC />)
 
       expect(wrapper.getElement(0)).toEqual(<Component pc={false} tablet={false} mobile />)
     })
 
     it('pass empty mqs, expect child\'s props is empty', () => {
-      const HOC = withBreakpoint([])(Component)
+      const HOC = withBreakpoints([])(Component)
       const wrapper = shallow(<HOC />)
 
       expect(wrapper.getElement()).toEqual(<Component />)
     })
 
     it('pass invalid type of mqs, expect occured error', () => {
-      expect(() => withBreakpoint(undefined)(Component))
+      expect(() => withBreakpoints(undefined)(Component))
         .toThrow('Invalid type of \'mqs\': must be an array')
     })
 
@@ -41,14 +41,14 @@ describe('withBreakpoint', () => {
         'wrong value'
       ]
 
-      expect(() => withBreakpoint(wrongMqs)(Component))
+      expect(() => withBreakpoints(wrongMqs)(Component))
         .toThrow('Invalid type of \'mqs\'\'s element: must be an object')
     })
 
     it('pass mqs without name property, expect occured error', () => {
       const wrongMqs = [{ mq: 'all' }]
 
-      expect(() => withBreakpoint(wrongMqs)(Component))
+      expect(() => withBreakpoints(wrongMqs)(Component))
         .toThrow('Cannot read property \'name\'')
     })
   })
@@ -59,7 +59,7 @@ describe('withBreakpoint', () => {
         { name: 'mobile', mq: 'screen and (min-width: 801px)', defaultMatches: false },
         { name: 'mobile', mq: 'screen and (max-width: 800px)', defaultMatches: true }
       ]
-      const HOC = withBreakpoint(mqs)(Component)
+      const HOC = withBreakpoints(mqs)(Component)
       const wrapper = mount(<HOC />)
 
       expect(wrapper.children().find('#container').text()).toEqual('mobile')
@@ -70,7 +70,7 @@ describe('withBreakpoint', () => {
         { name: 'pc', mq: 'screen and (min-width: 801px)', defaultMatches: false },
         { name: 'mobile', mq: 'screen and (max-width: 800px)', defaultMatches: false }
       ]
-      const HOC = withBreakpoint(mqs)(Component)
+      const HOC = withBreakpoints(mqs)(Component)
       const wrapper = mount(<HOC />)
 
       expect(wrapper.children().find('#container').text()).toEqual('')

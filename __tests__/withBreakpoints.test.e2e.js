@@ -4,7 +4,7 @@ import puppeteer from 'puppeteer'
 const ASYNC_TIME_OUT = 15000
 const TEST_URL = 'http://localhost:3001'
 
-describe('WithBreakpoint', () => {
+describe('withBreakpoints', () => {
   let page
   let browser
 
@@ -51,7 +51,7 @@ describe('WithBreakpoint', () => {
         { name: 'mobile', mq: 'screen and (max-width: 768px)' }
       ]
 
-      window.renderWithBreakpoint(mqs, container)
+      window.renderWithBreakpoints(mqs, container)
     })
 
     const text = await page.$eval('#component', el => el.innerText)
@@ -75,7 +75,7 @@ describe('WithBreakpoint', () => {
         { name: 'mobile', mq: 'screen and (max-width: 768px)' }
       ]
 
-      window.renderWithBreakpoint(mqs, container)
+      window.renderWithBreakpoints(mqs, container)
     })
 
     const text = await page.$eval('#component', el => el.innerText)
@@ -99,7 +99,7 @@ describe('WithBreakpoint', () => {
         { name: 'mobile', mq: 'screen and (max-width: 768px)' }
       ]
 
-      window.renderWithBreakpoint(mqs, container)
+      window.renderWithBreakpoints(mqs, container)
     })
 
     let text = await page.$eval('#component', el => el.innerText)

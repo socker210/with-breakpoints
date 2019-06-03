@@ -1,6 +1,6 @@
 import React from 'react'
 import { render } from 'react-dom'
-import Breakpoint, { withBreakpoint } from '.'
+import Breakpoint, { withBreakpoints } from '.'
 
 const ExampleOfBreakpoint = () => (
   <>
@@ -24,14 +24,14 @@ const mqs = [
   { name: 'pc', mq: 'screen and (min-width: 768px)' },
   { name: 'mobile', mq: 'screen and (max-width: 767px)' }
 ]
-const HOC = withBreakpoint(mqs)(ExampleOfWithBreakpoint)
+const HOC = withBreakpoints(mqs)(ExampleOfWithBreakpoint)
 
 const App = () => (
   <>
     <h1>Breakpoint</h1>
     <ExampleOfBreakpoint />
     <br /><br /><br />
-    <h1>withBreakpoint</h1>
+    <h1>withBreakpoints</h1>
     <HOC />
   </>
 )

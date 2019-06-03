@@ -1,7 +1,7 @@
 import Breakpoint from './Breakpoint'
-import withBreakpoint from './withBreakpoint'
+import withBreakpoints from './withBreakpoints'
 
 export default Breakpoint
 export {
-  withBreakpoint
+  withBreakpoints
 }

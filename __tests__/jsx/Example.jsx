@@ -1,6 +1,6 @@
 import React from 'react'
 import { render } from 'react-dom'
-import { withBreakpoint } from '../../src'
+import { withBreakpoints } from '../../src'
 
 // eslint-disable-next-line react/prop-types
 const Component = ({ pc, mobile }) => (
@@ -9,10 +9,10 @@ const Component = ({ pc, mobile }) => (
   </div>
 )
 
-function renderWithBreakpoint (mqs, container) {
-  const HOC = withBreakpoint(mqs)(Component)
+function renderWithBreakpoints (mqs, container) {
+  const HOC = withBreakpoints(mqs)(Component)
 
   return render(<HOC />, container)
 }
 
-window.renderWithBreakpoint = renderWithBreakpoint
+window.renderWithBreakpoints = renderWithBreakpoints
