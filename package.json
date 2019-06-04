@@ -2,16 +2,9 @@
   "name": "with-breakpoints",
   "version": "1.0.0",
   "description": "CSS media queries in react, for build a responsive design as you want",
-  "main": "dist/index.js",
-  "scripts": {
-    "dev": "NODE_ENV=development webpack-dev-server",
-    "test": "TEST_ENV=unit jest --verbose",
-    "test:watch": "TEST_ENV=unit jest --verbose --watch",
-    "test:e2e": "TEST_ENV=e2e jest --verbose",
-    "test:e2e:watch": "TEST_ENV=e2e jest --verbose --watch",
-    "test:e2e:build": "NODE_ENV=test webpack --watch",
-    "test:e2e:start": "NODE_ENV=test-server webpack-dev-server"
-  },
+  "author": "socker210",
+  "repository": "https://github.com/socker210/with-breakpoints",
+  "license": "MIT",
   "keywords": [
     "breakpoints",
     "mediaquery",
@@ -20,8 +13,17 @@
     "component",
     "react"
   ],
-  "author": "socker210",
-  "license": "MIT",
+  "main": "dist/index.js",
+  "scripts": {
+    "dev": "NODE_ENV=development webpack-dev-server",
+    "docz": "docz dev",
+    "test": "TEST_ENV=unit jest --verbose",
+    "test:watch": "TEST_ENV=unit jest --verbose --watch",
+    "test:e2e": "TEST_ENV=e2e jest --verbose",
+    "test:e2e:watch": "TEST_ENV=e2e jest --verbose --watch",
+    "test:e2e:build": "NODE_ENV=test webpack --watch",
+    "test:e2e:start": "NODE_ENV=test-server webpack-dev-server"
+  },
   "dependencies": {
     "hoist-non-react-statics": "^3.3.0",
     "json2mq": "^0.2.0"
@@ -33,6 +35,8 @@
     "babel-jest": "^24.8.0",
     "babel-loader": "^8.0.6",
     "babel-polyfill": "^6.26.0",
+    "docz": "^1.2.0",
+    "docz-theme-default": "^1.2.0",
     "enzyme": "^3.9.0",
     "enzyme-adapter-react-16": "^1.12.1",
     "enzyme-to-json": "^3.3.5",

@@ -1,0 +1,106 @@
+---
+name: Examples
+route: /examples
+---
+
+import { Playground } from 'docz'
+import Breakpoint, { withBreakpoints } from '../src'
+
+# Examples
+
+
+## Breakpoint
+### Basic usage
+<Playground>
+  <>
+    <Breakpoint>
+      <div>Default mediaquery is all</div>
+    </Breakpoint>
+    <Breakpoint mq='screen and (max-width: 767px)'>
+      <div>Screen width less than 767px</div>
+    </Breakpoint>
+    <Breakpoint mq='screen and (min-width: 768px)'>
+      <div>Screen width more than 768px</div>
+    </Breakpoint>
+  </>
+</Playground>
+
+### Render child with function
+<Playground>
+  <>
+    <Breakpoint mq='screen and (max-width: 767px)'>
+      {matches => {
+        return matches ? 'Matches' : 'Not matches'
+      }}
+    </Breakpoint>
+  </>
+</Playground>
+
+### Pass mq as an object
+<Playground>
+  <>
+    <Breakpoint mq={{ orientation: 'landscape' }}>
+      Hello landscape!
+    </Breakpoint>
+    <Breakpoint mq={{ orientation: 'portrait' }}>
+      Hello portrait!
+    </Breakpoint>
+  </>
+</Playground>
+
+### onChange event
+<Playground>
+  <>
+    <h3>Check out console!</h3>
+    <Breakpoint
+      mq={{ screen: true, minWidth: 768 }}
+      onChange={matches => console.log(`Matches is ${matches}`)}
+    >
+      {matches => matches ? 'Matches will be true' : 'Matches will be false'}
+    </Breakpoint>
+  </>
+</Playground>
+
+
+## withBreakpoints
+### Basic usage
+<Playground>
+  {() => {
+    const Component = ({ landscape, portrait }) => (
+      <>
+        <div>landscape: {landscape.toString()}</div>
+        <div>portrait: {portrait.toString()}</div>
+      </>
+    )
+    const mqs = [
+      { name: 'landscape', mq: '(orientation: landscape)' },
+      { name: 'portrait', mq: '(orientation: portrait)' }
+    ]
+    const HOC = withBreakpoints(mqs)(Component)
+
+    return (
+      <HOC />
+    )
+  }}
+</Playground>
+
+### Pass mq as an object
+<Playground>
+  {() => {
+    const Component = ({ pc, mobile }) => (
+      <>
+        <div>pc: {pc.toString()}</div>
+        <div>mobile: {mobile.toString()}</div>
+      </>
+    )
+    const mqs = [
+      { name: 'pc', mq: { screen: true, minWidth: 768 } },
+      { name: 'mobile', mq: { screen: true, maxWidth: 767 } }
+    ]
+    const HOC = withBreakpoints(mqs)(Component)
+
+    return (
+      <HOC />
+    )
+  }}
+</Playground>
