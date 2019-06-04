@@ -44,7 +44,7 @@ function createHOC (WrappedComponent, mqs) {
       this._unmount = true
 
       Object.keys(this.state)
-        .map(mq => mq.removeListener())
+        .map(mq => this.state[mq].removeListener())
     }
 
     getProps () {
