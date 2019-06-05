@@ -8,6 +8,7 @@ module.exports = {
   dest: 'docs',
   host: '0.0.0.0',
   port: 3003,
+  hashRouter: true,
   menu: [
     'Getting started',
     'Examples'

@@ -9,6 +9,7 @@
   },
   "license": "MIT",
   "keywords": [
+    "with-breakpoints",
     "breakpoints",
     "mediaquery",
     "matchmedia",
