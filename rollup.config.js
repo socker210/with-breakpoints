@@ -10,7 +10,7 @@ const input = 'src/index.js'
 const cjs = [
   {
     input: input,
-    output: { file: `dist/cjs/${pkg.name}.js`, format: 'cjs', exports: 'named' },
+    output: { file: `dist/cjs/${pkg.name}.js`, format: 'cjs', exports: 'named', sourcemap: true },
     external: ['react', 'prop-types'],
     plugins: [
       babel({ exclude: 'node_modules/**' }),
@@ -20,7 +20,7 @@ const cjs = [
   },
   {
     input: 'src/index.js',
-    output: { file: `dist/cjs/${pkg.name}.min.js`, format: 'cjs', exports: 'named' },
+    output: { file: `dist/cjs/${pkg.name}.min.js`, format: 'cjs', exports: 'named', sourcemap: true },
     external: ['react', 'prop-types'],
     plugins: [
       babel({ exclude: 'node_modules/**' }),
@@ -34,7 +34,7 @@ const cjs = [
 const esm = [
   {
     input: input,
-    output: { file: `dist/esm/${pkg.name}.js`, format: 'esm', exports: 'named' },
+    output: { file: `dist/esm/${pkg.name}.js`, format: 'esm', exports: 'named', sourcemap: true },
     external: ['react', 'prop-types'],
     plugins: [
       babel({ exclude: 'node_modules/**' }),
@@ -55,7 +55,8 @@ const umd = [
       globals: {
         'react': 'React',
         'prop-types': 'PropTypes'
-      }
+      },
+      sourcemap: true
     },
     external: ['react', 'prop-types'],
     plugins: [
@@ -75,7 +76,8 @@ const umd = [
       globals: {
         'react': 'React',
         'prop-types': 'PropTypes'
-      }
+      },
+      sourcemap: true
     },
     external: ['react', 'prop-types'],
     plugins: [
