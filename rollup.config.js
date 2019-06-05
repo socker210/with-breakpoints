@@ -2,6 +2,7 @@ const commonjs = require('rollup-plugin-commonjs')
 const resolve = require('rollup-plugin-node-resolve')
 const babel = require('rollup-plugin-babel')
 const uglify = require('rollup-plugin-uglify').uglify
+const replace = require('rollup-plugin-replace')
 const pkg = require('./package.json')
 
 const input = 'src/index.js'
@@ -60,7 +61,8 @@ const umd = [
     plugins: [
       babel({ exclude: 'node_modules/**' }),
       resolve({ extensions: ['.js', '.jsx'] }),
-      commonjs({ include: 'node_modules/**' })
+      commonjs({ include: 'node_modules/**' }),
+      replace({ 'process.env.NODE_ENV': JSON.stringify('development') })
     ]
   },
   {
@@ -80,6 +82,7 @@ const umd = [
       babel({ exclude: 'node_modules/**' }),
       resolve({ extensions: ['.js', '.jsx'] }),
       commonjs({ include: 'node_modules/**' }),
+      replace({ 'process.env.NODE_ENV': JSON.stringify('production') }),
       uglify()
     ]
   }
