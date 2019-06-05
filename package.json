@@ -16,6 +16,7 @@
   "main": "index.js",
   "module": "dist/esm/with-breakpoints.js",
   "unpkg": "dist/umd/with-breakpoints.js",
+  "browser": "withBreakpoints",
   "files": [
     "dist/cjs",
     "dist/esm",
