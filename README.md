@@ -9,6 +9,7 @@ Also, you can receive props the matches status of the mediaquery set by HOC comp
 * [Installation](#installation)
 * [Usage](#usage)
 * [Props](#props)
+* [Example](#example)
 * [License](#license)
 
 
@@ -22,6 +23,13 @@ Install with yarn:
 ```
 yarn add with-breakpoints
 ```
+
+Using a UMD:
+```javascript
+<script src="https://unpkg.com/with-breakpoints/dist/umd/with-breakpoints.js"></script>
+<script src="https://unpkg.com/with-breakpoints/dist/umd/with-breakpoints.min.js"></script>
+```
+> Notice: You must include [react](https://reactjs.org/docs/cdn-links.html), [react-dom](https://reactjs.org/docs/cdn-links.html), [prop-types](https://cdnjs.com/libraries/prop-types) if you are using a UMD
 
 
 ## Usage
@@ -120,6 +128,10 @@ Below components's `mq` props is used be [json2mq](https://github.com/akiran/jso
 | defaultMatches | `bool`                | `true`  | `false`  | Default match for server side rendering (Browser will be ignored) |
 > This component is HOC. Therefore, you can pass the props via function argument like a react-redux's `connect`.  
 > The argument that [mqs](#using-a-hoc) must be an array and its elements must be an object.
+
+
+## Example
+You can see the example at [here](https://socker210.github.io/with-breakpoints/)
 
 
 ## License
