@@ -3,6 +3,7 @@
 [![npm version](https://img.shields.io/npm/v/with-breakpoints.svg)](https://www.npmjs.com/package/with-breakpoints)
 [![npm download per month](https://img.shields.io/npm/dm/with-breakpoints.svg)](https://www.npmjs.com/package/with-breakpoints)
 [![dependencies Status](https://david-dm.org/socker210/with-breakpoints/status.svg)](https://david-dm.org/socker210/with-breakpoints)
+[![Travis CI](https://travis-ci.com/socker210/with-breakpoints.svg?branch=master)](https://travis-ci.com/socker210/with-breakpoints)
 
 A react component that used for use css mediaquery as you know easily and flexible.
 
