@@ -1,1 +1,9 @@
-language: javascript
+language: node_js
+node_js:
+  - "node"
+install:
+  - yarn install
+before_script:
+  - yarn run test:e2e:build && yarn run test:e2e:start
+script:
+  - yarn run test && yarn run test:e2e
