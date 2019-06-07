@@ -33,7 +33,6 @@
     "docz:build": "docz build",
     "deploy": "yarn run docz:build && gh-pages -d docs",
     "build": "rollup -c",
-    "publish": "yarn run build && npm publish",
     "test": "TEST_ENV=unit jest --verbose",
     "test:watch": "TEST_ENV=unit jest --verbose --watch",
     "test:e2e": "TEST_ENV=e2e jest --verbose",
