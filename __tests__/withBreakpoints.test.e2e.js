@@ -106,7 +106,7 @@ describe('withBreakpoints', () => {
 
     expect(text).toEqual('mobile')
 
-    await page.waitFor(10)
+    await page.waitFor(500)
 
     await page.setViewport({
       width: 900,
